@@ -19,3 +19,8 @@ body {
 div, p, h1, h2, h3, h4, h5, h6, section, main, article, aside, button, input {
   box-sizing: border-box;
 }
+
+.modal-container {
+  position: fixed;
+  z-index: 1000;
+}

@@ -1,6 +1,6 @@
 .textarea {
     width: calc(100% - 32px);
-    height: 32px;
+    min-height: 32px;
     padding: 10px 16px;
     font-size: 14px;
     line-height: 20px;

@@ -10,6 +10,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App />
+    <div id="modal-root" className="modal-container" />
   </React.StrictMode>
 );
 

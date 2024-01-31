@@ -17,13 +17,10 @@
     --color-danger: #f45c4a;
     --color-success: #4a934a;
 
-    --column-gap: 12px;
-    --column-width: 280px;
     --modal-width: 600px;
+    --modal-height: 600px;
 
-    --modal-height: 400px;
-    --modal-max-height: 600px;
-
+    --modal-radius: 8px;
     --button-radius: 6px;
 
     --card-box-shadow: 0 0 10px 1px #d1d1d2;

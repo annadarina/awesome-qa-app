@@ -20,6 +20,11 @@
     transform: scale(1.05);
 }
 
+.button--primary {
+    background-color: var(--color-primary);
+    color: var(--white);
+}
+
 .button--danger {
     background-color: var(--color-danger);
     border-color: var(--color-danger);
