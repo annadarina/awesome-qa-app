@@ -14,7 +14,8 @@
 
     --color-info: #03a9f4;
     --color-warning: #f3c033;
-    --color-error: #f45c4a;
+    --color-danger: #f45c4a;
+    --color-success: #4a934a;
 
     --column-gap: 12px;
     --column-width: 280px;
@@ -23,11 +24,9 @@
     --modal-height: 400px;
     --modal-max-height: 600px;
 
-    --card-radius: 6px;
-    --modal-radius: 5px;
-    --column-radius: 12px;
+    --button-radius: 6px;
 
-    --column-box-shadow: 0 0 10px 1px #d1d1d2;
+    --card-box-shadow: 0 0 10px 1px #d1d1d2;
     --modal-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 

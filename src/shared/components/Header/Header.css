@@ -1,0 +1,27 @@
+.header {
+    position: sticky;
+    top: 0;
+    padding: 16px 24px;
+    /*background-color: var(--color-primary);*/
+    background-color: var(--color-background-pale);
+    border-bottom: 1px solid var(--color-border-default);
+}
+
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__title {
+    font-weight: 600;
+    font-size: 24px;
+    /*color: var(--white);*/
+    color: var(--color-primary);
+}
+
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

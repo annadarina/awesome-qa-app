@@ -1,0 +1,15 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.layout__content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 16px 24px;
+    /*overflow: hidden;*/
+    background-color: var(--color-background-pale);
+}
