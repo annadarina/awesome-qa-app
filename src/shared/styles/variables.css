@@ -1,0 +1,33 @@
+:root {
+    --color-background: #fff;
+    --color-background-pale: #f9f9f9;
+    --color-background-overlay: rgba(0, 0, 0, 0.5);
+    --color-border-default: #d1d1d2;
+    --color-primary: #307FFF;
+    --color-primary-pale: rgba(107, 87, 255, 0.1);
+    --color-text-main: #19191C;
+    --color-text-secondary: #4b5563;
+    --color-text-caption: #9ca3af;
+
+    --white: #ffffff;
+    --black: #000000;
+
+    --color-info: #03a9f4;
+    --color-warning: #f3c033;
+    --color-error: #f45c4a;
+
+    --column-gap: 12px;
+    --column-width: 280px;
+    --modal-width: 600px;
+
+    --modal-height: 400px;
+    --modal-max-height: 600px;
+
+    --card-radius: 6px;
+    --modal-radius: 5px;
+    --column-radius: 12px;
+
+    --column-box-shadow: 0 0 10px 1px #d1d1d2;
+    --modal-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
