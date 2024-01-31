@@ -1,18 +1,44 @@
 import React, { useState } from 'react';
 import Header from 'shared/components/Header';
-import QuestionsList from '../QuestionsList';
-import QuestionDialog from '../../shared/components/QuestionDialog';
+import QuestionDialog from './components/QuestionDialog';
+import QuestionsList from './components/QuestionsList';
 import './Home.css';
+import { Question } from 'shared/types';
+import { useAppDispatch } from 'shared/store/hooks';
+import {
+  addQuestion,
+  sortQuestions,
+  removeAllQuestions,
+} from 'shared/store/slices/questionsSlice';
+
+const emptyQuestion = { answer: '', question: '' };
 
 const Home = () => {
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleAddQuestion = (
+    questionData: Omit<Question, 'id'>,
+    withDelay: boolean
+  ) => {
+    dispatch(addQuestion(questionData));
+    console.log({ withDelay });
+  };
+
+  const handleSortAll = () => {
+    dispatch(sortQuestions());
+  };
+
+  const handleRemoveAll = () => {
+    dispatch(removeAllQuestions());
+  };
 
   return (
     <div className="layout">
       <Header
         onAdd={() => setIsOpen(true)}
-        onRemoveAll={() => {}}
-        onSortAll={() => {}}
+        onRemoveAll={handleRemoveAll}
+        onSortAll={handleSortAll}
       />
 
       <main className="layout__content">
@@ -23,7 +49,8 @@ const Home = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         type="add"
-        selectedQuestion={{ id: '1', answer: '', question: '' }}
+        onAdd={handleAddQuestion}
+        selectedQuestion={emptyQuestion}
       />
     </div>
   );

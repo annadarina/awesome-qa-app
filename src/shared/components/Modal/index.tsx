@@ -8,11 +8,20 @@ import './Modal.css';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: () => void;
   title: string;
   children: React.ReactNode;
+  isSubmitDisabled?: boolean;
 }
 
-const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
+const Modal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  onSubmit,
+  isSubmitDisabled,
+}) => {
   const modalRoot: HTMLElement | null = document.getElementById('modal-root');
 
   useEffect(() => {
@@ -36,6 +45,11 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
     };
   }, [isOpen, onClose]);
 
+  const handleSubmit = () => {
+    onSubmit();
+    onClose();
+  };
+
   if (!modalRoot) {
     return null;
   }
@@ -57,7 +71,11 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
           <main className="modal__content">{children}</main>
 
           <footer className="modal__footer">
-            <Button variant="primary" onClick={onClose}>
+            <Button
+              variant="primary"
+              onClick={handleSubmit}
+              disabled={isSubmitDisabled}
+            >
               Submit
             </Button>
             <Button onClick={onClose}>Cancel</Button>

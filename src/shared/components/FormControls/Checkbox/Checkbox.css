@@ -30,15 +30,23 @@
     border-radius: 4px;
     border: 1px solid var(--color-primary);
     background-color: var(--white);
-    transition: background-color 0.3s ease-in;
+    transition: background-color 0.3s ease-in, box-shadow 0.3s ease-in;
 }
 
 .container:hover input ~ .checkmark {
-    background-color: var(--color-background-pale)
+    background-color: rgba(48,127,255, 0.2);
+}
+
+.container:focus-within input ~ .checkmark {
+    box-shadow: 0 0 1px 2px var(--color-primary)
 }
 
 .container input:checked ~ .checkmark {
     background-color: var(--color-primary);
+}
+
+.container:hover input:checked ~ .checkmark {
+    background-color: rgba(48,127,255, 0.6);
 }
 
 .checkmark:after {

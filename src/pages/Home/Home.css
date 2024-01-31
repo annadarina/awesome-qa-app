@@ -9,7 +9,6 @@
     display: flex;
     height: 100%;
     width: 100%;
-    padding: 16px 24px;
-    /*overflow: hidden;*/
+    padding: 24px;
     background-color: var(--color-background-pale);
 }

@@ -15,7 +15,7 @@ const Header: React.FC<Props> = ({ onAdd, onRemoveAll, onSortAll }) => {
         <h1 className="header__title">Awesome Q&A App</h1>
         <div className="header__actions">
           <Button onClick={onAdd}>Add new</Button>
-          <Button onClick={onSortAll} variant="info">
+          <Button onClick={onSortAll} variant="primary">
             Sort all
           </Button>
           <Button onClick={onRemoveAll} variant="danger">

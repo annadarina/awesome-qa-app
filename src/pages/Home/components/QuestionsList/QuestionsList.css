@@ -1,0 +1,32 @@
+.questions-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.wrapper .placeholder {
+    margin-top: 60px;
+}
+
+.questions-list__header {
+    margin-bottom: 22px;
+}
+
+.questions-list__title {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--color-text-main);
+}
+
+.questions-list__subtitle {
+    font-size: 16px;
+    color: var(--color-text-caption);
+}

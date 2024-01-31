@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import Modal from 'shared/components/Modal';
+import TextField from 'shared/components/FormControls/TextField';
+import TextArea from 'shared/components/FormControls/TextArea';
+import { ActionType, Question } from 'shared/types';
+import FormLabel from 'shared/components/FormControls/FormLabel';
+import Checkbox from 'shared/components/FormControls/Checkbox';
 import './QuestionDialog.css';
-import Modal from '../Modal';
-import TextField from '../FormControls/TextField';
-import TextArea from '../FormControls/TextArea';
-import { ActionType, Question } from '../../types';
-import FormLabel from '../FormControls/FormLabel';
-import Checkbox from '../FormControls/Checkbox';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  selectedQuestion: Question;
+  onAdd: (questionData: Omit<Question, 'id'>, withDelay: boolean) => void;
+  selectedQuestion: Omit<Question, 'id'>;
   type: ActionType;
 }
 
@@ -19,26 +20,43 @@ const QuestionDialog: React.FC<Props> = ({
   onClose,
   selectedQuestion,
   type,
+  onAdd,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [question, setQuestion] = useState<Question>(selectedQuestion);
+  const [question, setQuestion] =
+    useState<Omit<Question, 'id'>>(selectedQuestion);
   const [withDelay, setWithDelay] = useState(false);
+
   const title = type === 'add' ? 'Add Question' : 'Edit Question';
 
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log({ question: e.target.value });
+    setQuestion((prev) => ({ ...prev, question: e.target.value }));
   };
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log({ answer: e.target.value });
+    setQuestion((prev) => ({ ...prev, answer: e.target.value }));
   };
 
   const handleToggleDelay = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWithDelay(event.target.checked);
   };
 
+  const handleOnSubmit = () => {
+    onAdd(question, withDelay);
+  };
+
+  const handleClose = () => {
+    setQuestion(selectedQuestion);
+    onClose();
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title}>
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      title={title}
+      onSubmit={handleOnSubmit}
+      isSubmitDisabled={Object.values(question).some((value) => !value)}
+    >
       <form className="form">
         <div className="form__field">
           <FormLabel htmlFor="question">Question</FormLabel>
