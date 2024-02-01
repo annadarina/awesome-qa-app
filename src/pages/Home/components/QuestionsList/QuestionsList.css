@@ -4,15 +4,21 @@
     width: 100%;
 }
 
-.wrapper {
+.questions-list__content {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 16px;
     width: 100%;
 }
 
-.wrapper .placeholder {
+.questions-list__content .placeholder {
     margin-top: 60px;
+}
+
+.questions-list__content .question-card {
+    max-width: 66%;
 }
 
 .questions-list__header {

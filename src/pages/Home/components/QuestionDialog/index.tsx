@@ -10,7 +10,7 @@ import './QuestionDialog.css';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (questionData: Omit<Question, 'id'>, withDelay: boolean) => void;
+  onSubmit: (questionData: Omit<Question, 'id'>, withDelay: boolean) => void;
   selectedQuestion: Omit<Question, 'id'>;
   type: ActionType;
 }
@@ -20,7 +20,7 @@ const QuestionDialog: React.FC<Props> = ({
   onClose,
   selectedQuestion,
   type,
-  onAdd,
+  onSubmit,
 }) => {
   const [question, setQuestion] =
     useState<Omit<Question, 'id'>>(selectedQuestion);
@@ -41,7 +41,7 @@ const QuestionDialog: React.FC<Props> = ({
   };
 
   const handleOnSubmit = () => {
-    onAdd(question, withDelay);
+    onSubmit(question, withDelay);
   };
 
   const handleClose = () => {

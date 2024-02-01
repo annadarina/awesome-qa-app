@@ -50,7 +50,7 @@ const Modal: React.FC<Props> = ({
     onClose();
   };
 
-  if (!modalRoot) {
+  if (!modalRoot || !isOpen) {
     return null;
   }
 

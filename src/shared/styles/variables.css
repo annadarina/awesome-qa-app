@@ -3,8 +3,9 @@
     --color-background-pale: #f9f9f9;
     --color-background-overlay: rgba(0, 0, 0, 0.5);
     --color-border-default: #d1d1d2;
+    --color-border-card: #E5EAF2;;
     --color-primary: #307FFF;
-    --color-primary-pale: rgba(48,127,255, 0.1);
+    --color-primary-pale: rgba(48, 127, 255, 0.1);
     --color-text-main: #19191C;
     --color-text-secondary: #4b5563;
     --color-text-caption: #9ca3af;
@@ -22,8 +23,9 @@
 
     --modal-radius: 8px;
     --button-radius: 6px;
+    --card-radius: 10px;
 
-    --card-box-shadow: 0 0 10px 1px #d1d1d2;
+    --card-box-shadow: 0px 0px 3px -1px rgba(0, 0, 0, 0.2);
     --modal-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 

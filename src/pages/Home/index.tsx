@@ -49,7 +49,7 @@ const Home = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         type="add"
-        onAdd={handleAddQuestion}
+        onSubmit={handleAddQuestion}
         selectedQuestion={emptyQuestion}
       />
     </div>
