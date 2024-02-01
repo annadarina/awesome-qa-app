@@ -1,5 +1,5 @@
 import React from 'react';
-import './Header.css';
+import './AppHeader.css';
 import Button from '../Button';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   onRemoveAll: () => void;
 }
 
-const Header: React.FC<Props> = ({ onAdd, onRemoveAll, onSortAll }) => {
+const AppHeader: React.FC<Props> = ({ onAdd, onRemoveAll, onSortAll }) => {
   return (
     <header className="header">
       <div className="header__wrapper">
@@ -27,4 +27,4 @@ const Header: React.FC<Props> = ({ onAdd, onRemoveAll, onSortAll }) => {
   );
 };
 
-export default Header;
+export default AppHeader;

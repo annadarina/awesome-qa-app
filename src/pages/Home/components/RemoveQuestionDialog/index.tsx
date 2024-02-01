@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../Modal';
+import Modal from 'shared/components/Modal';
 
 interface Props {
   open: boolean;
@@ -7,6 +7,7 @@ interface Props {
   onSubmit: () => void;
   name: string;
 }
+
 const RemoveQuestionDialog: React.FC<Props> = ({
   open,
   onClose,

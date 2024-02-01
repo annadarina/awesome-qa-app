@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import Header from 'shared/components/Header';
+import AppHeader from 'shared/components/AppHeader';
 import QuestionDialog from './components/QuestionDialog';
 import QuestionsList from './components/QuestionsList';
 import './Home.css';
@@ -12,7 +11,7 @@ import {
   removeAllQuestions,
 } from 'shared/store/slices/questionsSlice';
 
-const emptyQuestion = { id: uuidv4(), answer: '', question: '' };
+const emptyQuestion = { id: '', answer: '', question: '' };
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -41,7 +40,7 @@ const Home = () => {
 
   return (
     <div className="layout">
-      <Header
+      <AppHeader
         onAdd={handleAdd}
         onRemoveAll={handleRemoveAll}
         onSortAll={handleSortAll}

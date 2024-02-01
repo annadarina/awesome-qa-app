@@ -12,7 +12,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <App />
-    <div id="modal-root" className="modal-container" />
   </Provider>
 );
 

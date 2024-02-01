@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Modal from 'shared/components/Modal';
 import TextField from 'shared/components/FormControls/TextField';
 import TextArea from 'shared/components/FormControls/TextArea';
@@ -24,11 +24,16 @@ const QuestionDialog: React.FC<Props> = ({
 }) => {
   const [question, setQuestion] = useState<Question | null>(null);
   const [withDelay, setWithDelay] = useState(false);
+
   const title = type === 'add' ? 'Add Question' : 'Edit Question';
 
   useEffect(() => {
     setQuestion(selectedQuestion);
   }, [selectedQuestion]);
+
+  const isSubmitDisabled = useMemo(() => {
+    return !question?.question || !question?.answer;
+  }, [question]);
 
   const handleQuestionChange = (key: keyof Question, value: string) => {
     if (question) {
@@ -61,9 +66,7 @@ const QuestionDialog: React.FC<Props> = ({
       onClose={handleClose}
       title={title}
       onSubmit={handleOnSubmit}
-      isSubmitDisabled={Object.values(question as Question).some(
-        (value) => !value
-      )}
+      isSubmitDisabled={isSubmitDisabled}
     >
       <form className="form">
         <div className="form__field">
@@ -71,6 +74,7 @@ const QuestionDialog: React.FC<Props> = ({
           <TextField
             type="text"
             id="question"
+            autoFocus
             value={question?.question || ''}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleQuestionChange('question', e.target.value)

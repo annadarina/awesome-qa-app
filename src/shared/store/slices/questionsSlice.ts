@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import { Question } from '../../types';
 
-interface QuestionsState {
+export interface QuestionsState {
   questions: Question[];
   isLoading: boolean;
 }
@@ -16,7 +17,8 @@ export const questionsSlice = createSlice({
   initialState,
   reducers: {
     addQuestion(state, action: PayloadAction<Question>) {
-      state.questions = [action.payload, ...state.questions];
+      const newQuestion = { ...action.payload, id: uuidv4() };
+      state.questions = [newQuestion, ...state.questions];
     },
     sortQuestions(state) {
       state.questions = state.questions.sort((a, b) =>

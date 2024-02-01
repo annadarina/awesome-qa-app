@@ -9,7 +9,7 @@ import {
   editQuestion,
   removeQuestion,
 } from 'shared/store/slices/questionsSlice';
-import RemoveQuestionDialog from 'shared/components/RemoveQuestionDialog';
+import RemoveQuestionDialog from 'pages/Home/components/RemoveQuestionDialog';
 
 const QuestionsList = () => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
