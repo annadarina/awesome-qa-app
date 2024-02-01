@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Header from 'shared/components/Header';
 import QuestionDialog from './components/QuestionDialog';
 import QuestionsList from './components/QuestionsList';
@@ -11,18 +12,18 @@ import {
   removeAllQuestions,
 } from 'shared/store/slices/questionsSlice';
 
-const emptyQuestion = { answer: '', question: '' };
+const emptyQuestion = { id: uuidv4(), answer: '', question: '' };
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
+    null
+  );
 
-  const handleAddQuestion = (
-    questionData: Omit<Question, 'id'>,
-    withDelay: boolean
-  ) => {
-    dispatch(addQuestion(questionData));
-    console.log({ withDelay });
+  const handleAdd = () => {
+    setOpen(true);
+    setSelectedQuestion(emptyQuestion);
   };
 
   const handleSortAll = () => {
@@ -33,10 +34,15 @@ const Home = () => {
     dispatch(removeAllQuestions());
   };
 
+  const handleSubmitQuestion = (question: Question, withDelay: boolean) => {
+    dispatch(addQuestion(question));
+    console.log({ withDelay });
+  };
+
   return (
     <div className="layout">
       <Header
-        onAdd={() => setIsOpen(true)}
+        onAdd={handleAdd}
         onRemoveAll={handleRemoveAll}
         onSortAll={handleSortAll}
       />
@@ -46,11 +52,11 @@ const Home = () => {
       </main>
 
       <QuestionDialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={open}
+        onClose={() => setOpen(false)}
         type="add"
-        onSubmit={handleAddQuestion}
-        selectedQuestion={emptyQuestion}
+        onSubmit={handleSubmitQuestion}
+        selectedQuestion={selectedQuestion}
       />
     </div>
   );

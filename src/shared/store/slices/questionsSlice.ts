@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 import { Question } from '../../types';
 
 interface QuestionsState {
@@ -16,12 +15,8 @@ export const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   reducers: {
-    addQuestion(state, action: PayloadAction<Omit<Question, 'id'>>) {
-      const newQuestion = {
-        id: uuidv4(),
-        ...action.payload,
-      };
-      state.questions = [newQuestion, ...state.questions];
+    addQuestion(state, action: PayloadAction<Question>) {
+      state.questions = [action.payload, ...state.questions];
     },
     sortQuestions(state) {
       state.questions = state.questions.sort((a, b) =>
@@ -31,10 +26,28 @@ export const questionsSlice = createSlice({
     removeAllQuestions(state) {
       state.questions = [];
     },
+    removeQuestion(state, action: PayloadAction<string>) {
+      state.questions = state.questions.filter(
+        (question) => question.id !== action.payload
+      );
+    },
+    editQuestion(state, action: PayloadAction<Question>) {
+      state.questions = state.questions.map((question) => {
+        if (question.id === action.payload.id) {
+          return { ...action.payload };
+        }
+        return question;
+      });
+    },
   },
 });
 
-export const { addQuestion, sortQuestions, removeAllQuestions } =
-  questionsSlice.actions;
+export const {
+  addQuestion,
+  sortQuestions,
+  removeAllQuestions,
+  removeQuestion,
+  editQuestion,
+} = questionsSlice.actions;
 
 export default questionsSlice.reducer;

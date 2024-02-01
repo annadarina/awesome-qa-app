@@ -7,8 +7,8 @@ import './QuestionCard.css';
 
 interface Props {
   question: Question;
-  onEdit: (question: Question) => void;
-  onRemove: (id: string) => void;
+  onEdit: () => void;
+  onRemove: () => void;
 }
 
 const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
@@ -20,14 +20,12 @@ const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
 
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log(question);
-    onEdit(question);
+    onEdit();
   };
 
   const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log(question.id);
-    onRemove(question.id);
+    onRemove();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {

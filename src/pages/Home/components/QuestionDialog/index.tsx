@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'shared/components/Modal';
 import TextField from 'shared/components/FormControls/TextField';
 import TextArea from 'shared/components/FormControls/TextArea';
@@ -10,8 +10,8 @@ import './QuestionDialog.css';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (questionData: Omit<Question, 'id'>, withDelay: boolean) => void;
-  selectedQuestion: Omit<Question, 'id'>;
+  onSubmit: (questionData: Question, withDelay: boolean) => void;
+  selectedQuestion: Question | null;
   type: ActionType;
 }
 
@@ -22,18 +22,18 @@ const QuestionDialog: React.FC<Props> = ({
   type,
   onSubmit,
 }) => {
-  const [question, setQuestion] =
-    useState<Omit<Question, 'id'>>(selectedQuestion);
+  const [question, setQuestion] = useState<Question | null>(null);
   const [withDelay, setWithDelay] = useState(false);
-
   const title = type === 'add' ? 'Add Question' : 'Edit Question';
 
-  const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuestion((prev) => ({ ...prev, question: e.target.value }));
-  };
+  useEffect(() => {
+    setQuestion(selectedQuestion);
+  }, [selectedQuestion]);
 
-  const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuestion((prev) => ({ ...prev, answer: e.target.value }));
+  const handleQuestionChange = (key: keyof Question, value: string) => {
+    if (question) {
+      setQuestion((prev) => ({ ...(prev as Question), [key]: value }));
+    }
   };
 
   const handleToggleDelay = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +41,9 @@ const QuestionDialog: React.FC<Props> = ({
   };
 
   const handleOnSubmit = () => {
-    onSubmit(question, withDelay);
+    if (question) {
+      onSubmit(question, withDelay);
+    }
   };
 
   const handleClose = () => {
@@ -49,13 +51,19 @@ const QuestionDialog: React.FC<Props> = ({
     onClose();
   };
 
+  if (!question) {
+    return null;
+  }
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
       title={title}
       onSubmit={handleOnSubmit}
-      isSubmitDisabled={Object.values(question).some((value) => !value)}
+      isSubmitDisabled={Object.values(question as Question).some(
+        (value) => !value
+      )}
     >
       <form className="form">
         <div className="form__field">
@@ -64,7 +72,9 @@ const QuestionDialog: React.FC<Props> = ({
             type="text"
             id="question"
             value={question?.question || ''}
-            onChange={handleQuestionChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleQuestionChange('question', e.target.value)
+            }
           />
         </div>
         <div className="form__field">
@@ -73,7 +83,9 @@ const QuestionDialog: React.FC<Props> = ({
             rows={6}
             id="answer"
             value={question?.answer || ''}
-            onChange={handleAnswerChange}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              handleQuestionChange('answer', e.target.value)
+            }
           />
         </div>
         <div className="form__field">
