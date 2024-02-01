@@ -1,6 +1,7 @@
 import React from 'react';
 import './AppHeader.css';
 import Button from '../Button';
+import Header from '../Header';
 
 interface Props {
   onAdd: () => void;
@@ -10,10 +11,10 @@ interface Props {
 
 const AppHeader: React.FC<Props> = ({ onAdd, onRemoveAll, onSortAll }) => {
   return (
-    <header className="header">
-      <div className="header__wrapper">
-        <h1 className="header__title">Awesome Q&A App</h1>
-        <div className="header__actions">
+    <header className="app-header">
+      <div className="app-header__wrapper">
+        <Header as="h1">Awesome Q&A App</Header>
+        <div className="app-header__actions">
           <Button onClick={onAdd}>Add new</Button>
           <Button onClick={onSortAll} variant="primary">
             Sort all

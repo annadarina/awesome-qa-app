@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import Placeholder from 'shared/components/Placeholder';
 import { useAppSelector, useAppDispatch } from 'shared/store/hooks';
 import QuestionCard from 'shared/components/QuestionCard';
-import './QuestionsList.css';
 import { Question } from 'shared/types';
 import QuestionDialog from '../QuestionDialog';
+import Header from 'shared/components/Header';
+import './QuestionsList.css';
 import {
   editQuestion,
   removeQuestion,
 } from 'shared/store/slices/questionsSlice';
-import RemoveQuestionDialog from 'pages/Home/components/RemoveQuestionDialog';
+import RemoveDialog from '../RemoveDialog';
 
 const QuestionsList = () => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
     null
   );
@@ -26,7 +27,7 @@ const QuestionsList = () => {
   };
 
   const handleOpenRemoveDialog = (question: Question) => {
-    setOpenDeleteDialog(true);
+    setOpenRemoveDialog(true);
     setSelectedQuestion(question);
   };
 
@@ -44,7 +45,7 @@ const QuestionsList = () => {
   return (
     <div className="questions-list">
       <div className="questions-list__header">
-        <h1 className="questions-list__title">Created Questions</h1>
+        <Header as="h2">Created Questions</Header>
         <p className="questions-list__subtitle">
           Here you can find {questions.length}{' '}
           {questions.length === 1 ? 'question' : 'questions'}. Feel free to
@@ -74,11 +75,12 @@ const QuestionsList = () => {
         onSubmit={handleSubmit}
         selectedQuestion={selectedQuestion}
       />
-      <RemoveQuestionDialog
-        open={openDeleteDialog}
+      <RemoveDialog
+        open={openRemoveDialog}
         onSubmit={handleRemove}
-        onClose={() => setOpenDeleteDialog(false)}
+        onClose={() => setOpenRemoveDialog(false)}
         name={selectedQuestion?.question || ''}
+        isRemoveAll={false}
       />
     </div>
   );

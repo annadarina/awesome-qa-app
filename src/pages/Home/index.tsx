@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AppHeader from 'shared/components/AppHeader';
 import QuestionDialog from './components/QuestionDialog';
 import QuestionsList from './components/QuestionsList';
+import RemoveDialog from './components/RemoveDialog';
 import './Home.css';
 import { Question } from 'shared/types';
 import { useAppDispatch } from 'shared/store/hooks';
@@ -16,6 +17,7 @@ const emptyQuestion = { id: '', answer: '', question: '' };
 const Home = () => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
     null
   );
@@ -42,7 +44,7 @@ const Home = () => {
     <div className="layout">
       <AppHeader
         onAdd={handleAdd}
-        onRemoveAll={handleRemoveAll}
+        onRemoveAll={() => setOpenRemoveDialog(true)}
         onSortAll={handleSortAll}
       />
 
@@ -56,6 +58,12 @@ const Home = () => {
         type="add"
         onSubmit={handleSubmitQuestion}
         selectedQuestion={selectedQuestion}
+      />
+      <RemoveDialog
+        open={openRemoveDialog}
+        onSubmit={handleRemoveAll}
+        onClose={() => setOpenRemoveDialog(false)}
+        isRemoveAll
       />
     </div>
   );

@@ -25,10 +25,8 @@
     margin-bottom: 22px;
 }
 
-.questions-list__title {
+.questions-list__header .header {
     margin-bottom: 8px;
-    font-weight: 600;
-    font-size: 24px;
     color: var(--color-text-main);
 }
 

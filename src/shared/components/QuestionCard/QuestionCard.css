@@ -6,6 +6,11 @@
     border-radius: var(--card-radius);
     background-color: var(--white);
     box-shadow: var(--card-box-shadow);
+    transition:  box-shadow 0.3s ease-in;
+}
+
+.question-card:hover {
+    box-shadow: 0 0 16px -1px rgba(0, 0, 0, 0.2)
 }
 
 .question-card__wrapper {
@@ -18,16 +23,12 @@
 .question-card__header {
     display: flex;
     align-items: center;
-    padding: 20px 20px;
+    padding: 28px;
     cursor: pointer;
 }
 
 .question-card__title {
-    padding-right: 6px;
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--color-primary);
-    word-break: break-all;
+    padding-right: 4px;
 }
 
 .question-card__title:focus-visible {
@@ -70,7 +71,7 @@
 
 .question-card__content {
     border-top: 1px solid var(--color-border-card);
-    padding: 20px;
+    padding: 28px;
     transition: max-height 0.3s ease-in-out;
 }
 

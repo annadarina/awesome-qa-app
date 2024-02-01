@@ -3,6 +3,7 @@ import { Question } from 'shared/types';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/remove.svg';
 import IconButton from '../IconButton';
+import Header from '../Header';
 import './QuestionCard.css';
 
 interface Props {
@@ -42,13 +43,14 @@ const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
           className="question-card__header"
           onClick={toggleAnswerVisibility}
         >
-          <h3
+          <Header
+            as="h4"
             className="question-card__title"
             tabIndex={0}
             onKeyDown={handleKeyPress}
           >
             {question.question}
-          </h3>
+          </Header>
           <div
             className={`question-card__actions ${
               showAnswer ? 'question-card__actions--show' : ''

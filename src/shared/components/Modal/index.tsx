@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { ReactComponent as CloseIcon } from 'shared/assets/close.svg';
 import IconButton from '../IconButton';
 import Button from '../Button';
+import Header from '../Header';
 import './Modal.css';
 
 interface Props {
@@ -65,7 +66,7 @@ const Modal: React.FC<Props> = ({
             <CloseIcon />
           </IconButton>
           <header className="modal__header">
-            <h2 className="modal__header-title">{title}</h2>
+            <Header as="h3">{title}</Header>
           </header>
 
           <main className="modal__content">{children}</main>
