@@ -13,6 +13,7 @@ interface Props {
   title: React.ReactNode;
   children: React.ReactNode;
   isSubmitDisabled?: boolean;
+  isLoading?: boolean;
 }
 
 const Modal: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const Modal: React.FC<Props> = ({
   children,
   onSubmit,
   isSubmitDisabled,
+  isLoading,
 }) => {
   const modalRoot: HTMLElement | null = document.getElementById('modal-root');
 
@@ -76,6 +78,7 @@ const Modal: React.FC<Props> = ({
               variant="primary"
               onClick={handleSubmit}
               disabled={isSubmitDisabled}
+              isLoading={isLoading}
             >
               Submit
             </Button>

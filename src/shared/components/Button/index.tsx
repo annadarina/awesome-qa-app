@@ -13,6 +13,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
   variant?: Variant;
+  isLoading?: boolean;
 }
 
 const getVariantClassName = (variant: Variant) => {
@@ -27,13 +28,16 @@ const Button: React.FC<Props> = ({
   children,
   className = '',
   variant = 'default',
+  isLoading,
   ...props
 }) => {
   return (
     <button
       className={`button ${getVariantClassName(variant)} ${className}`}
+      disabled={isLoading}
       {...props}
     >
+      {isLoading && <span className="spinner"></span>}
       {children}
     </button>
   );
