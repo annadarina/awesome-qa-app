@@ -9,7 +9,7 @@ import './QuestionsList.css';
 import {
   editQuestion,
   removeQuestion,
-} from 'shared/store/slices/questionsSlice';
+} from 'shared/store/questions/questionsSlice';
 import RemoveDialog from '../RemoveDialog';
 import Tooltip from 'shared/components/Tooltip';
 

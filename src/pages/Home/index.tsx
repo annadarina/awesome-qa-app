@@ -10,7 +10,7 @@ import {
   addQuestion,
   sortQuestions,
   removeAllQuestions,
-} from 'shared/store/slices/questionsSlice';
+} from 'shared/store/questions/questionsSlice';
 
 const emptyQuestion = { id: '', answer: '', question: '' };
 

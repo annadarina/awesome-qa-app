@@ -16,6 +16,9 @@ export const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   reducers: {
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
     addQuestion(state, action: PayloadAction<Question>) {
       const newQuestion = { ...action.payload, id: uuidv4() };
       state.questions = [newQuestion, ...state.questions];

@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import questionsReducer from './slices/questionsSlice';
+import questionsReducer from './questions/questionsSlice';
 import {
   loadStateFromLocalStorage,
   localStorageMiddleware,
