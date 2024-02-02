@@ -11,6 +11,7 @@ import {
   removeQuestion,
 } from 'shared/store/slices/questionsSlice';
 import RemoveDialog from '../RemoveDialog';
+import Tooltip from 'shared/components/Tooltip';
 
 const QuestionsList = () => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -45,7 +46,9 @@ const QuestionsList = () => {
   return (
     <div className="questions-list">
       <div className="questions-list__header">
-        <Header as="h2">Created Questions</Header>
+        <Tooltip title="Here you can find created questions and their answers">
+          <Header as="h2">Created Questions</Header>
+        </Tooltip>
         <p className="questions-list__subtitle">
           Here you can find {questions.length}{' '}
           {questions.length === 1 ? 'question' : 'questions'}. Feel free to

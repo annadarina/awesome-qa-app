@@ -10,7 +10,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
   isSubmitDisabled?: boolean;
 }

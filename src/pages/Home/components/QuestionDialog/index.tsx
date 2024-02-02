@@ -6,6 +6,7 @@ import { ActionType, Question } from 'shared/types';
 import FormLabel from 'shared/components/FormControls/FormLabel';
 import Checkbox from 'shared/components/FormControls/Checkbox';
 import './QuestionDialog.css';
+import Tooltip from 'shared/components/Tooltip';
 
 interface Props {
   isOpen: boolean;
@@ -26,6 +27,10 @@ const QuestionDialog: React.FC<Props> = ({
   const [withDelay, setWithDelay] = useState(false);
 
   const title = type === 'add' ? 'Add Question' : 'Edit Question';
+  const tooltipMessage =
+    type === 'add'
+      ? 'Here you can create new questions and their answers'
+      : 'Here you can edit questions and their answers';
 
   useEffect(() => {
     setQuestion(selectedQuestion);
@@ -64,7 +69,7 @@ const QuestionDialog: React.FC<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title={title}
+      title={<Tooltip title={tooltipMessage}>{title}</Tooltip>}
       onSubmit={handleOnSubmit}
       isSubmitDisabled={isSubmitDisabled}
     >
