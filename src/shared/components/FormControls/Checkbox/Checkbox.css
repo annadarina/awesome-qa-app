@@ -5,7 +5,7 @@
     min-height: 24px;
     padding-left: 36px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--color-text-secondary);
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -29,12 +29,12 @@
     width: 24px;
     border-radius: 4px;
     border: 1px solid var(--color-primary);
-    background-color: var(--white);
+    background-color: var(--color-background-form-field);
     transition: background-color 0.3s ease-in, box-shadow 0.3s ease-in;
 }
 
 .container:hover input ~ .checkmark {
-    background-color: rgba(48,127,255, 0.2);
+    background-color: var(--color-background-checkbox-hover);
 }
 
 .container:focus-within input ~ .checkmark {
@@ -45,8 +45,13 @@
     background-color: var(--color-primary);
 }
 
+.container--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .container:hover input:checked ~ .checkmark {
-    background-color: rgba(48,127,255, 0.6);
+    background-color: var(--color-background-checkbox-hover-checked);
 }
 
 .checkmark:after {
@@ -66,7 +71,5 @@
     height: 10px;
     border: solid white;
     border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }

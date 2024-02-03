@@ -24,4 +24,8 @@
     color: var(--color-success);
 }
 
+.placeholder__message {
+    text-align: center;
+}
+
 

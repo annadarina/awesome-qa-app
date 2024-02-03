@@ -1,0 +1,4 @@
+.remove-dialog__message {
+    margin-bottom: 16px;
+    color: var(--color-text-primary);
+}

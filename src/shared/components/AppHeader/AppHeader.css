@@ -2,8 +2,9 @@
     position: sticky;
     top: 0;
     padding: 16px 24px;
-    background-color: var(--color-background-pale);
+    background-color: var(--color-background-primary);
     border-bottom: 1px solid var(--color-border-default);
+    z-index: 2;
 }
 
 .app-header__wrapper {
@@ -12,8 +13,12 @@
     justify-content: space-between;
 }
 
-.app-header__actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+@media (max-width: 480px) {
+    .app-header__wrapper {
+        flex-direction: column;
+    }
+
+    .app-header__wrapper .header {
+        font-size: 1.5rem;
+    }
 }

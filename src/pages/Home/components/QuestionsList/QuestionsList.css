@@ -27,10 +27,16 @@
 
 .questions-list__header .header {
     margin-bottom: 8px;
-    color: var(--color-text-main);
+    color: var(--color-text-primary);
 }
 
 .questions-list__subtitle {
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--color-text-caption);
+}
+
+@media (max-width: 768px) {
+    .questions-list__content .question-card {
+        max-width: 100%;
+    }
 }

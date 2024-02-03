@@ -1,5 +1,8 @@
 import React from 'react';
+import './RemoveDialog.css';
+
 import Modal from 'shared/components/Modal';
+
 import { useAppSelector, useAppDispatch } from 'shared/store/hooks';
 import { hideModal } from 'shared/store/modals/modalsSlice';
 import Button from 'shared/components/Button';
@@ -26,7 +29,7 @@ const RemoveDialog: React.FC<Props> = ({ type }) => {
     ) : (
       <>
         Are you sure you want to remove "<b>{modalProps?.question?.question}</b>
-        " question
+        " question?
       </>
     );
 
@@ -48,7 +51,7 @@ const RemoveDialog: React.FC<Props> = ({ type }) => {
 
   return (
     <Modal isOpen={currentModal === type} title={title} onClose={handleClose}>
-      <p>{message}</p>
+      <p className="remove-dialog__message">{message}</p>
       <div className="form__actions">
         <Button type="submit" variant="primary" onClick={handleSubmit}>
           Submit

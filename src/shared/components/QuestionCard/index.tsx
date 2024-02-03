@@ -44,7 +44,7 @@ const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
           onClick={toggleAnswerVisibility}
         >
           <Header
-            as="h4"
+            as="h3"
             className="question-card__title"
             tabIndex={0}
             onKeyDown={handleKeyPress}

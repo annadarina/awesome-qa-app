@@ -5,13 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './shared/store/store';
 import { Provider } from 'react-redux';
+import ThemeProvider from './shared/context/ThemeProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider>
+      <App />
+      <div id="modal-root" className="modal-container"></div>
+    </ThemeProvider>
   </Provider>
 );
 

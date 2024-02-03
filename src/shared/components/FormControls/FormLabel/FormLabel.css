@@ -1,6 +1,6 @@
 .form-label {
     display: inline-flex;
     margin-bottom: 6px;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--color-text-caption);
 }

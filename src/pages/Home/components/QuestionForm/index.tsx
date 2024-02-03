@@ -56,6 +56,7 @@ const QuestionForm: React.FC<Props> = ({ onSubmit, onCancel, isLoading }) => {
           type="text"
           id="question"
           autoFocus
+          disabled={isLoading}
           value={question.question}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleQuestionChange('question', e.target.value)
@@ -65,9 +66,11 @@ const QuestionForm: React.FC<Props> = ({ onSubmit, onCancel, isLoading }) => {
       <div className="form__field">
         <FormLabel htmlFor="answer">Answer</FormLabel>
         <TextArea
-          rows={6}
+          rows={10}
           id="answer"
+          placeholder={'Add new question'}
           value={question.answer}
+          disabled={isLoading}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             handleQuestionChange('answer', e.target.value)
           }
@@ -78,6 +81,7 @@ const QuestionForm: React.FC<Props> = ({ onSubmit, onCancel, isLoading }) => {
           label="Add with 5 seconds delay"
           id="isAsync"
           checked={isAsync}
+          disabled={isLoading}
           onChange={handleToggleDelay}
         />
       </div>

@@ -57,14 +57,18 @@
 .spinner {
     width: var(--spinner-size);
     height: var(--spinner-size);
-    border: 2px solid var(--color-border-default);
     margin-right: 4px;
-    border-left-color: #3e3e3e;
+    border: 2px solid var(--color-border-default);
+    border-left-color: var(--color-border-spinner);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

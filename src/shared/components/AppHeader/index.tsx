@@ -1,28 +1,17 @@
 import React from 'react';
 import './AppHeader.css';
-import Button from '../Button';
 import Header from '../Header';
 
 interface Props {
-  onAdd: () => void;
-  onSortAll: () => void;
-  onRemoveAll: () => void;
+  children?: React.ReactNode;
 }
 
-const AppHeader: React.FC<Props> = ({ onAdd, onRemoveAll, onSortAll }) => {
+const AppHeader: React.FC<Props> = ({ children }) => {
   return (
     <header className="app-header">
       <div className="app-header__wrapper">
         <Header as="h1">Awesome Q&A App</Header>
-        <div className="app-header__actions">
-          <Button onClick={onAdd}>Add new</Button>
-          <Button onClick={onSortAll} variant="primary">
-            Sort all
-          </Button>
-          <Button onClick={onRemoveAll} variant="danger">
-            Remove all
-          </Button>
-        </div>
+        {children}
       </div>
     </header>
   );

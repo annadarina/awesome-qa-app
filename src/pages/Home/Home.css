@@ -4,7 +4,7 @@
     min-height: 100%;
     width: 100%;
     height: 100%;
-    background-color: var(--color-background-pale);
+    background-color: var(--color-background-primary);
     overflow-x: hidden;
     word-break: break-word;
 }
@@ -13,4 +13,33 @@
     display: flex;
     width: 100%;
     padding: 24px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-actions__theme {
+    color: var(--color-text-caption);
+}
+
+@media (max-width: 480px) {
+    .layout__content {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-actions {
+        margin-top: 10px;
+        flex-direction: column;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .header-actions .button {
+        width: 100%;
+    }
 }

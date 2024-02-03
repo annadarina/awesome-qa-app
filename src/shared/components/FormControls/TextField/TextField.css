@@ -2,13 +2,14 @@
     width: 100%;
     height: 32px;
     padding: 0 16px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.1;
     border-radius: 4px;
+    color: var(--color-text-primary);
     border: 1px solid var(--color-border-default);
     outline: none;
     transition: border-color 0.2s ease-in;
+    background-color: var(--color-background-form-field);
 }
 
 .textfield:hover {
@@ -22,4 +23,9 @@
 
 .textfield::placeholder {
     color: var(--color-border-default);
+}
+
+.textfield:disabled {
+    background-color: var(--color-background-form-field-disabled);
+    border: 1px solid var(--color-border-default);
 }

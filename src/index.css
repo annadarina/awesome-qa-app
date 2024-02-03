@@ -9,7 +9,7 @@ html, body, #root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  background-color: var(--color-background);
+  background-color: var(--color-background-primary);
 }
 
 body {
@@ -22,5 +22,5 @@ div, p, h1, h2, h3, h4, h5, h6, section, main, article, aside, button, input, te
 
 .modal-container {
   position: fixed;
-  z-index: 1000;
+  z-index: 9999;
 }

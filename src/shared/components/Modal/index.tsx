@@ -23,15 +23,26 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
       }
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       // Cleanup: re-enable scrolling if modal is unmounted
       document.body.style.overflow = '';
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose]);
 
@@ -63,17 +74,8 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
 
   return createPortal(
     <>
-      <div
-        className={`modal__overlay ${isOpen ? 'show' : ''} `}
-        onClick={onClose}
-      >
-        <div
-          className="modal"
-          // prevent modal close when click inside modal body
-          onClick={(e) => e.stopPropagation()}
-          ref={modalRef}
-          onKeyDown={handleTabPress}
-        >
+      <div className={`modal__overlay ${isOpen ? 'show' : ''} `}>
+        <div className="modal" ref={modalRef} onKeyDown={handleTabPress}>
           <IconButton className="modal__close-button" onClick={onClose}>
             <CloseIcon />
           </IconButton>
