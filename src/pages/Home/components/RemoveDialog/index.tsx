@@ -15,8 +15,10 @@ interface Props {
 
 const RemoveDialog: React.FC<Props> = ({ type }) => {
   const { currentModal, modalProps } = useAppSelector((state) => state.modals);
-
   const dispatch = useAppDispatch();
+
+  const title =
+    type === ModalTypes.REMOVE_ALL ? 'Remove All Questions' : 'Remove Question';
 
   const message =
     type == ModalTypes.REMOVE_ALL ? (
@@ -36,6 +38,8 @@ const RemoveDialog: React.FC<Props> = ({ type }) => {
     if (type === ModalTypes.REMOVE_QUESTION) {
       dispatch(removeQuestion(modalProps?.question?.id as string));
     }
+
+    dispatch(hideModal());
   };
 
   const handleClose = () => {
@@ -43,15 +47,7 @@ const RemoveDialog: React.FC<Props> = ({ type }) => {
   };
 
   return (
-    <Modal
-      isOpen={currentModal === type}
-      title={
-        type === ModalTypes.REMOVE_ALL
-          ? 'Remove All Questions'
-          : 'Remove Question'
-      }
-      onClose={handleClose}
-    >
+    <Modal isOpen={currentModal === type} title={title} onClose={handleClose}>
       <p>{message}</p>
       <div className="form__actions">
         <Button type="submit" variant="primary" onClick={handleSubmit}>

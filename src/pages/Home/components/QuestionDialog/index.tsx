@@ -16,11 +16,12 @@ interface Props {
 }
 
 const QuestionDialog: React.FC<Props> = ({ type }) => {
+  const dispatch = useAppDispatch();
+
   const { isUpdateLoading, isAddNewLoading } = useAppSelector(
     (state) => state.questions
   );
   const { currentModal } = useAppSelector((state) => state.modals);
-  const dispatch = useAppDispatch();
 
   const title = type === ModalTypes.ADD ? 'Add Question' : 'Edit Question';
   const tooltipMessage =
@@ -38,16 +39,14 @@ const QuestionDialog: React.FC<Props> = ({ type }) => {
     if (isAsync) {
       dispatch(submitQuestionAsync({ question, type }));
     } else {
-      if (type === ModalTypes.ADD) {
-        dispatch(addQuestion(question));
-      }
-
-      if (type === ModalTypes.EDIT) {
-        dispatch(editQuestion(question));
-      }
+      const action =
+        type === ModalTypes.ADD
+          ? addQuestion(question)
+          : editQuestion(question);
+      dispatch(action);
     }
 
-    dispatch(dispatch(hideModal()));
+    dispatch(hideModal());
   };
 
   const handleClose = () => {

@@ -11,6 +11,11 @@ const rootReducer = combineReducers({
   modals: modalsReducer,
 });
 
+// For demo purpose only!
+// I created a preloaded state from the local storage to simulate saving
+// and showing data from API
+// In real life it's unlikely you would need to store the whole
+// state of application in the redux store
 const preloadedState = loadStateFromLocalStorage();
 
 export const store = configureStore({

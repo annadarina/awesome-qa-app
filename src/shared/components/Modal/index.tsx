@@ -25,9 +25,6 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleKeyDown);
     }
 
     return () => {
