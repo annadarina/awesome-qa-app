@@ -4,20 +4,26 @@ import { Question } from '../../types';
 
 export interface QuestionsState {
   questions: Question[];
-  isLoading: boolean;
+  isAddNewLoading: boolean;
+  isUpdateLoading: boolean;
 }
 
 const initialState: QuestionsState = {
   questions: [],
-  isLoading: false,
+  isAddNewLoading: false,
+  isUpdateLoading: false,
 };
 
 export const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
+    setIsLoading(
+      state,
+      action: PayloadAction<'isAddNewLoading' | 'isUpdateLoading'>
+    ) {
+      const key = action.payload;
+      state[key] = true;
     },
     addQuestion(state, action: PayloadAction<Question>) {
       const newQuestion = { ...action.payload, id: uuidv4() };
@@ -30,6 +36,10 @@ export const questionsSlice = createSlice({
     },
     removeAllQuestions(state) {
       state.questions = [];
+    },
+    resetLoading(state) {
+      state.isAddNewLoading = false;
+      state.isUpdateLoading = false;
     },
     removeQuestion(state, action: PayloadAction<string>) {
       state.questions = state.questions.filter(
@@ -53,6 +63,7 @@ export const {
   removeAllQuestions,
   removeQuestion,
   editQuestion,
+  resetLoading,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

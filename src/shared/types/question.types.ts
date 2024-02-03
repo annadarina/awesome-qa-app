@@ -5,3 +5,8 @@ export interface Question {
   question: string;
   answer: string;
 }
+
+export interface QuestionFormData {
+  question: Question;
+  isAsync: boolean;
+}

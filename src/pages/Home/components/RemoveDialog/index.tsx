@@ -1,37 +1,64 @@
 import React from 'react';
 import Modal from 'shared/components/Modal';
+import { useAppSelector, useAppDispatch } from 'shared/store/hooks';
+import { hideModal } from 'shared/store/modals/modalsSlice';
+import Button from 'shared/components/Button';
+import {
+  removeAllQuestions,
+  removeQuestion,
+} from 'shared/store/questions/questionsSlice';
+import { ModalTypes } from 'shared/types';
 
 interface Props {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: () => void;
-  isRemoveAll: boolean;
-  name?: string;
+  type: ModalTypes.REMOVE_QUESTION | ModalTypes.REMOVE_ALL;
 }
 
-const RemoveDialog: React.FC<Props> = ({
-  open,
-  onClose,
-  onSubmit,
-  name,
-  isRemoveAll,
-}) => {
-  const message = isRemoveAll ? (
-    'Are you sure?'
-  ) : (
-    <>
-      Are you sure you want to remove "<b>{name}</b>" question
-    </>
-  );
+const RemoveDialog: React.FC<Props> = ({ type }) => {
+  const { currentModal, modalProps } = useAppSelector((state) => state.modals);
+
+  const dispatch = useAppDispatch();
+
+  const message =
+    type == ModalTypes.REMOVE_ALL ? (
+      'Are you sure?'
+    ) : (
+      <>
+        Are you sure you want to remove "<b>{modalProps?.question?.question}</b>
+        " question
+      </>
+    );
+
+  const handleSubmit = () => {
+    if (type === ModalTypes.REMOVE_ALL) {
+      dispatch(removeAllQuestions());
+    }
+
+    if (type === ModalTypes.REMOVE_QUESTION) {
+      dispatch(removeQuestion(modalProps?.question?.id as string));
+    }
+  };
+
+  const handleClose = () => {
+    dispatch(hideModal());
+  };
 
   return (
     <Modal
-      isOpen={open}
-      onSubmit={onSubmit}
-      title={isRemoveAll ? 'Remove All Questions' : 'Remove Question'}
-      onClose={onClose}
+      isOpen={currentModal === type}
+      title={
+        type === ModalTypes.REMOVE_ALL
+          ? 'Remove All Questions'
+          : 'Remove Question'
+      }
+      onClose={handleClose}
     >
       <p>{message}</p>
+      <div className="form__actions">
+        <Button type="submit" variant="primary" onClick={handleSubmit}>
+          Submit
+        </Button>
+        <Button onClick={handleClose}>Cancel</Button>
+      </div>
     </Modal>
   );
 };

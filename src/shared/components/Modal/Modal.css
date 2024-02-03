@@ -44,11 +44,3 @@
     width: 100%;
     padding-top: 16px;
 }
-
-.modal__footer {
-    display: flex;
-    padding-top: 16px;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-}

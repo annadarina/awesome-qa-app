@@ -1,30 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AppHeader from 'shared/components/AppHeader';
-import QuestionDialog from './components/QuestionDialog';
 import QuestionsList from './components/QuestionsList';
 import RemoveDialog from './components/RemoveDialog';
 import './Home.css';
-import { Question } from 'shared/types';
 import { useAppDispatch } from 'shared/store/hooks';
-import {
-  addQuestion,
-  sortQuestions,
-  removeAllQuestions,
-} from 'shared/store/questions/questionsSlice';
-
-const emptyQuestion = { id: '', answer: '', question: '' };
+import { sortQuestions } from 'shared/store/questions/questionsSlice';
+import { showModal } from 'shared/store/modals/modalsSlice';
+import QuestionDialog from './components/QuestionDialog';
+import { ModalTypes } from 'shared/types';
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const [open, setOpen] = useState(false);
-  const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
-  const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
-    null
-  );
 
   const handleAdd = () => {
-    setOpen(true);
-    setSelectedQuestion(emptyQuestion);
+    dispatch(showModal({ modalType: ModalTypes.ADD }));
   };
 
   const handleSortAll = () => {
@@ -32,19 +21,14 @@ const Home = () => {
   };
 
   const handleRemoveAll = () => {
-    dispatch(removeAllQuestions());
-  };
-
-  const handleSubmitQuestion = (question: Question, withDelay: boolean) => {
-    dispatch(addQuestion(question));
-    console.log({ withDelay });
+    dispatch(showModal({ modalType: ModalTypes.REMOVE_ALL }));
   };
 
   return (
     <div className="layout">
       <AppHeader
         onAdd={handleAdd}
-        onRemoveAll={() => setOpenRemoveDialog(true)}
+        onRemoveAll={handleRemoveAll}
         onSortAll={handleSortAll}
       />
 
@@ -52,19 +36,8 @@ const Home = () => {
         <QuestionsList />
       </main>
 
-      <QuestionDialog
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        type="add"
-        onSubmit={handleSubmitQuestion}
-        selectedQuestion={selectedQuestion}
-      />
-      <RemoveDialog
-        open={openRemoveDialog}
-        onSubmit={handleRemoveAll}
-        onClose={() => setOpenRemoveDialog(false)}
-        isRemoveAll
-      />
+      <QuestionDialog type={ModalTypes.ADD} />
+      <RemoveDialog type={ModalTypes.REMOVE_ALL} />
     </div>
   );
 };

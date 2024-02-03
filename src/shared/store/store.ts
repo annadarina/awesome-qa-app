@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import questionsReducer from './questions/questionsSlice';
+import modalsReducer from './modals/modalsSlice';
 import {
   loadStateFromLocalStorage,
   localStorageMiddleware,
@@ -7,6 +8,7 @@ import {
 
 const rootReducer = combineReducers({
   questions: questionsReducer,
+  modals: modalsReducer,
 });
 
 const preloadedState = loadStateFromLocalStorage();

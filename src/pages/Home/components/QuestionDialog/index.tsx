@@ -1,111 +1,70 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Modal from 'shared/components/Modal';
-import TextField from 'shared/components/FormControls/TextField';
-import TextArea from 'shared/components/FormControls/TextArea';
-import { ActionType, Question } from 'shared/types';
-import FormLabel from 'shared/components/FormControls/FormLabel';
-import Checkbox from 'shared/components/FormControls/Checkbox';
-import './QuestionDialog.css';
 import Tooltip from 'shared/components/Tooltip';
+import {
+  addQuestion,
+  editQuestion,
+} from 'shared/store/questions/questionsSlice';
+import { useAppDispatch, useAppSelector } from 'shared/store/hooks';
+import { hideModal } from 'shared/store/modals/modalsSlice';
+import { submitQuestionAsync } from 'shared/store/questions/handleAsync';
+import QuestionForm from '../QuestionForm';
+import { QuestionFormData, ModalTypes } from 'shared/types';
 
 interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (questionData: Question, withDelay: boolean) => void;
-  selectedQuestion: Question | null;
-  type: ActionType;
+  type: ModalTypes.ADD | ModalTypes.EDIT;
 }
 
-const QuestionDialog: React.FC<Props> = ({
-  isOpen,
-  onClose,
-  selectedQuestion,
-  type,
-  onSubmit,
-}) => {
-  const [question, setQuestion] = useState<Question | null>(null);
-  const [withDelay, setWithDelay] = useState(false);
+const QuestionDialog: React.FC<Props> = ({ type }) => {
+  const { isUpdateLoading, isAddNewLoading } = useAppSelector(
+    (state) => state.questions
+  );
+  const { currentModal } = useAppSelector((state) => state.modals);
+  const dispatch = useAppDispatch();
 
-  const title = type === 'add' ? 'Add Question' : 'Edit Question';
+  const title = type === ModalTypes.ADD ? 'Add Question' : 'Edit Question';
   const tooltipMessage =
-    type === 'add'
+    type === ModalTypes.ADD
       ? 'Here you can create new questions and their answers'
       : 'Here you can edit questions and their answers';
 
-  useEffect(() => {
-    setQuestion(selectedQuestion);
-  }, [selectedQuestion]);
+  const isLoading = useMemo(() => {
+    return type === ModalTypes.ADD ? isAddNewLoading : isUpdateLoading;
+  }, [isAddNewLoading, isUpdateLoading, type]);
 
-  const isSubmitDisabled = useMemo(() => {
-    return !question?.question || !question?.answer;
-  }, [question]);
+  const handleOnSubmit = (formData: QuestionFormData) => {
+    const { question, isAsync } = formData;
 
-  const handleQuestionChange = (key: keyof Question, value: string) => {
-    if (question) {
-      setQuestion((prev) => ({ ...(prev as Question), [key]: value }));
+    if (isAsync) {
+      dispatch(submitQuestionAsync({ question, type }));
+    } else {
+      if (type === ModalTypes.ADD) {
+        dispatch(addQuestion(question));
+      }
+
+      if (type === ModalTypes.EDIT) {
+        dispatch(editQuestion(question));
+      }
     }
-  };
 
-  const handleToggleDelay = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWithDelay(event.target.checked);
-  };
-
-  const handleOnSubmit = () => {
-    if (question) {
-      onSubmit(question, withDelay);
-    }
+    dispatch(dispatch(hideModal()));
   };
 
   const handleClose = () => {
-    setQuestion(selectedQuestion);
-    onClose();
+    dispatch(hideModal());
   };
-
-  if (!question) {
-    return null;
-  }
 
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={currentModal === type || isLoading}
       onClose={handleClose}
       title={<Tooltip title={tooltipMessage}>{title}</Tooltip>}
-      onSubmit={handleOnSubmit}
-      isSubmitDisabled={isSubmitDisabled}
     >
-      <form className="form">
-        <div className="form__field">
-          <FormLabel htmlFor="question">Question</FormLabel>
-          <TextField
-            type="text"
-            id="question"
-            autoFocus
-            value={question?.question || ''}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleQuestionChange('question', e.target.value)
-            }
-          />
-        </div>
-        <div className="form__field">
-          <FormLabel htmlFor="answer">Answer</FormLabel>
-          <TextArea
-            rows={6}
-            id="answer"
-            value={question?.answer || ''}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              handleQuestionChange('answer', e.target.value)
-            }
-          />
-        </div>
-        <div className="form__field">
-          <Checkbox
-            label="Add with 5 seconds delay"
-            id="withDelay"
-            checked={withDelay}
-            onChange={handleToggleDelay}
-          />
-        </div>
-      </form>
+      <QuestionForm
+        onSubmit={handleOnSubmit}
+        onCancel={handleClose}
+        isLoading={isLoading}
+      />
     </Modal>
   );
 };

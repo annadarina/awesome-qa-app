@@ -1,32 +1,36 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Question } from '../../types';
+import { Question, ModalTypes } from '../../types';
 import { questionsSlice } from './questionsSlice';
 
 const delay: (question: Question) => Promise<Question> = (data: Question) => {
-  return new Promise((resolve) => setTimeout(() => resolve(data), 2000));
+  return new Promise((resolve) => setTimeout(() => resolve(data), 5000));
 };
 
 export const submitQuestionAsync = createAsyncThunk(
   'questions/submitAsync',
   async (
-    payload: { question: Question; type: 'add' | 'edit' },
+    payload: { question: Question; type: ModalTypes.ADD | ModalTypes.EDIT },
     { dispatch }
   ) => {
-    const { setIsLoading, addQuestion, editQuestion } = questionsSlice.actions;
+    const { setIsLoading, addQuestion, editQuestion, resetLoading } =
+      questionsSlice.actions;
     const { question, type } = payload;
 
-    dispatch(setIsLoading(true));
+    const loadingKey =
+      type === ModalTypes.ADD ? 'isAddNewLoading' : 'isUpdateLoading';
+
+    dispatch(setIsLoading(loadingKey));
 
     const data = await delay(question);
 
-    if (type === 'add') {
+    if (type === ModalTypes.ADD) {
       dispatch(addQuestion(data));
     }
 
-    if (type === 'edit') {
+    if (type === ModalTypes.EDIT) {
       dispatch(editQuestion(data));
     }
 
-    dispatch(setIsLoading(false));
+    dispatch(resetLoading());
   }
 );

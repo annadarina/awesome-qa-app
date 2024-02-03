@@ -2,29 +2,17 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactComponent as CloseIcon } from 'shared/assets/close.svg';
 import IconButton from '../IconButton';
-import Button from '../Button';
 import Header from '../Header';
 import './Modal.css';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
   title: React.ReactNode;
   children: React.ReactNode;
-  isSubmitDisabled?: boolean;
-  isLoading?: boolean;
 }
 
-const Modal: React.FC<Props> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  onSubmit,
-  isSubmitDisabled,
-  isLoading,
-}) => {
+const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
   const modalRoot: HTMLElement | null = document.getElementById('modal-root');
 
   useEffect(() => {
@@ -48,11 +36,6 @@ const Modal: React.FC<Props> = ({
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = () => {
-    onSubmit();
-    onClose();
-  };
-
   if (!modalRoot || !isOpen) {
     return null;
   }
@@ -72,18 +55,6 @@ const Modal: React.FC<Props> = ({
           </header>
 
           <main className="modal__content">{children}</main>
-
-          <footer className="modal__footer">
-            <Button
-              variant="primary"
-              onClick={handleSubmit}
-              disabled={isSubmitDisabled}
-              isLoading={isLoading}
-            >
-              Submit
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </footer>
         </div>
       </div>
     </>,
