@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactComponent as CloseIcon } from 'shared/assets/close.svg';
 import IconButton from '../IconButton';
@@ -14,6 +14,7 @@ interface Props {
 
 const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
   const modalRoot: HTMLElement | null = document.getElementById('modal-root');
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -28,10 +29,33 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
     }
 
     return () => {
-      document.body.style.overflow = ''; // Cleanup: re-enable scrolling if modal is unmounted
+      // Cleanup: re-enable scrolling if modal is unmounted
+      document.body.style.overflow = '';
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
+
+  const handleTabPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    // Extend this list if needed
+    const focusableElements = modalRef.current?.querySelectorAll(
+      'button, input, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (!focusableElements || focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement;
+
+    if (event.key === 'Tab') {
+      // Move focus to the first element if currently on the last element
+      if (document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+  };
 
   if (!modalRoot || !isOpen) {
     return null;
@@ -43,7 +67,13 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
         className={`modal__overlay ${isOpen ? 'show' : ''} `}
         onClick={onClose}
       >
-        <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="modal"
+          // prevent modal close when click inside modal body
+          onClick={(e) => e.stopPropagation()}
+          ref={modalRef}
+          onKeyDown={handleTabPress}
+        >
           <IconButton className="modal__close-button" onClick={onClose}>
             <CloseIcon />
           </IconButton>
