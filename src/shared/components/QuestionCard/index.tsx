@@ -16,7 +16,7 @@ const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const toggleAnswerVisibility = () => {
-    setShowAnswer(!showAnswer);
+    setShowAnswer((prevShowAnswer) => !prevShowAnswer);
   };
 
   const handleEdit = (e: React.MouseEvent) => {
@@ -36,7 +36,7 @@ const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
   };
 
   return (
-    <div className="question-card">
+    <div className="question-card" data-testid="card">
       <div className="question-card__wrapper">
         <div
           data-testid="cardHeader"
@@ -56,11 +56,16 @@ const QuestionCard: React.FC<Props> = ({ question, onEdit, onRemove }) => {
               showAnswer ? 'question-card__actions--show' : ''
             }`}
           >
-            <IconButton onClick={handleEdit} className="question-card__edit">
+            <IconButton
+              onClick={handleEdit}
+              label="editButton"
+              className="question-card__edit"
+            >
               <EditIcon />
             </IconButton>
             <IconButton
               onClick={handleRemove}
+              label="removeButton"
               className="question-card__remove"
             >
               <RemoveIcon />

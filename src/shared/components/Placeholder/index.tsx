@@ -18,7 +18,10 @@ const Placeholder = ({
   const statusClassName = `placeholder--${status}`;
 
   return (
-    <div className={`placeholder ${className} ${statusClassName}`}>
+    <div
+      className={`placeholder ${className} ${statusClassName}`}
+      data-testid="placeholder"
+    >
       <div className="placeholder__icon">{icon}</div>
       <div className="placeholder__message">{message}</div>
     </div>

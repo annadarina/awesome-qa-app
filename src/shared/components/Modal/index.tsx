@@ -74,9 +74,21 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, title, children }) => {
 
   return createPortal(
     <>
-      <div className={`modal__overlay ${isOpen ? 'show' : ''} `}>
-        <div className="modal" ref={modalRef} onKeyDown={handleTabPress}>
-          <IconButton className="modal__close-button" onClick={onClose}>
+      <div
+        className={`modal__overlay ${isOpen ? 'show' : ''} `}
+        data-testid="modal-overlay"
+      >
+        <div
+          className="modal"
+          ref={modalRef}
+          onKeyDown={handleTabPress}
+          data-testid="modal"
+        >
+          <IconButton
+            label="closeButton"
+            className="modal__close-button"
+            onClick={onClose}
+          >
             <CloseIcon />
           </IconButton>
           <header className="modal__header">

@@ -64,6 +64,7 @@ export const {
   removeQuestion,
   editQuestion,
   resetLoading,
+  setIsLoading,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

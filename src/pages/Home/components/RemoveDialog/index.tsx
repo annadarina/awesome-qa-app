@@ -53,10 +53,17 @@ const RemoveDialog: React.FC<Props> = ({ type }) => {
     <Modal isOpen={currentModal === type} title={title} onClose={handleClose}>
       <p className="remove-dialog__message">{message}</p>
       <div className="form__actions">
-        <Button type="submit" variant="primary" onClick={handleSubmit}>
+        <Button
+          data-testid="submitButton"
+          type="submit"
+          variant="primary"
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button data-testid="cancelButton" onClick={handleClose}>
+          Cancel
+        </Button>
       </div>
     </Modal>
   );

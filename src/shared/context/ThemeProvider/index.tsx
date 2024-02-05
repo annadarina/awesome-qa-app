@@ -33,7 +33,9 @@ export const ThemeProvider: React.FC<Props> = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={`layout theme-${theme}`}>{children}</div>
+      <div className={`layout theme-${theme}`} data-testid="layout">
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };

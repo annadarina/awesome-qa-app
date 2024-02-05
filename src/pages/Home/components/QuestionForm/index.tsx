@@ -88,6 +88,7 @@ const QuestionForm: React.FC<Props> = ({ onSubmit, onCancel, isLoading }) => {
       <div className="form__actions">
         <Button
           type="submit"
+          data-testid="submitButton"
           variant="primary"
           disabled={isSubmitDisabled || isLoading}
           isLoading={isLoading}
@@ -96,6 +97,7 @@ const QuestionForm: React.FC<Props> = ({ onSubmit, onCancel, isLoading }) => {
         </Button>
         <Button
           disabled={isLoading}
+          data-testid="cancelButton"
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
             onCancel();

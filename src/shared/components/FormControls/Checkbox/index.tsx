@@ -8,6 +8,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 const Checkbox: React.FC<Props> = ({ label, id, disabled, ...props }) => {
   return (
     <label
+      data-testid="checkboxContainer"
       htmlFor={id}
       className={`container ${disabled ? 'container--disabled' : ''}`}
     >

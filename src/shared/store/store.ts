@@ -6,7 +6,7 @@ import {
   localStorageMiddleware,
 } from './preloadState';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   questions: questionsReducer,
   modals: modalsReducer,
 });
@@ -16,7 +16,10 @@ const rootReducer = combineReducers({
 // and showing data from API
 // In real life it's unlikely you would need to store the whole
 // state of application in the redux store
-const preloadedState = loadStateFromLocalStorage();
+const preloadedState = {
+  ...loadStateFromLocalStorage(),
+  modals: { currentModal: null, modalProps: {} },
+};
 
 export const store = configureStore({
   reducer: rootReducer,
