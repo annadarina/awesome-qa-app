@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'appState';
+const STORAGE_KEY = 'qaAppState';
 
 export const localStorageMiddleware =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
