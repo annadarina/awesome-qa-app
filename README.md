@@ -6,7 +6,7 @@
 - [Implementation](#implementation)
 - [Final Notes](#final-notes)
 
-You can check live preview [here]().
+You can check live preview [here](https://awesome-qa-app.vercel.app/).
 
 ### Challenge
 
