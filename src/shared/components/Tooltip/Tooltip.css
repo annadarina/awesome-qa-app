@@ -36,3 +36,8 @@
     border-width: var(--tooltip-arrow-size);
     margin-left: calc(var(--tooltip-arrow-size) * -1);
 }
+
+.tooltip:focus-within > :first-child {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-border-default);
+}

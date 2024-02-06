@@ -57,7 +57,11 @@ const QuestionDialog: React.FC<Props> = ({ type }) => {
     <Modal
       isOpen={currentModal === type || isLoading}
       onClose={handleClose}
-      title={<Tooltip title={tooltipMessage}>{title}</Tooltip>}
+      title={
+        <Tooltip title={tooltipMessage}>
+          <span tabIndex={0}>{title}</span>
+        </Tooltip>
+      }
     >
       <QuestionForm
         onSubmit={handleOnSubmit}

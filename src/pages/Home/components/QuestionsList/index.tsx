@@ -33,7 +33,9 @@ const QuestionsList = () => {
     <div className="questions-list">
       <div className="questions-list__header">
         <Tooltip title="Here you can find created questions and their answers">
-          <Header as="h2">Created Questions</Header>
+          <Header as="h2" tabIndex={0}>
+            Created Questions
+          </Header>
         </Tooltip>
         <p className="questions-list__subtitle">
           Here you can find {questions.length}{' '}

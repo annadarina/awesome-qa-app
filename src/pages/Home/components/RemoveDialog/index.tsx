@@ -57,6 +57,7 @@ const RemoveDialog: React.FC<Props> = ({ type }) => {
           data-testid="submitButton"
           type="submit"
           variant="primary"
+          autoFocus
           onClick={handleSubmit}
         >
           Submit
